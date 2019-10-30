@@ -12,4 +12,4 @@ class Room:
         self.w_to = None
 
     def __str__(self):
-        return f"\n\tRoom: {self.name}\n\tDescription: {self.description}\n"
+        return f"\nRoom: {self.name}\nDescription: {self.description}"

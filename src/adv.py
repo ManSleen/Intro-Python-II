@@ -60,7 +60,9 @@ def game_intro():
     print("\nWelcome to Mike's Adventure!\n")
 
     while True:
-        print(f"\nHere's where you currently are: {player.current_room}")
+        print("\n---------------------")
+        print(f"Your current location: {player.current_room}")
+        print("---------------------")
         direction = input("\nWhich direction would you like to travel? ")
 
         def check_direction(dir):
@@ -68,7 +70,7 @@ def game_intro():
                 player.move(dir)
             else:
                 print(
-                    "-------\nSorry brah, there's nothing there! Try a different direction\n-------")
+                    "\n-------\nSorry brah,you can't go that way! Try a different direction\n-------")
 
         if direction == "n":
             check_direction(player.current_room.n_to)
