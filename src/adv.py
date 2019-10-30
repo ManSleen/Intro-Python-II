@@ -1,4 +1,5 @@
 
+from player import Player
 from room import Room
 
 # Declare all the rooms
@@ -40,6 +41,9 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+
+player = Player("Mike", "outside")
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -53,11 +57,27 @@ room['treasure'].s_to = room['narrow']
 
 
 def game_intro():
-    print("Welcome to Mike's Adventure!")
+    print("\nWelcome to Mike's Adventure!\n")
 
     while True:
-        direction = input("Direction you would like to travel: ")
-        print(direction)
+        print(f"Here's where you currently are: {room[player.current_room]}")
+        direction = input("Which direction would you like to travel? ")
+
+        if direction == "n":
+            print("\nYou selected north!\n")
+            player.current_room = room[player.current_room].n_to
+        elif direction == "w":
+            print("\nYou selected west!\n")
+        elif direction == "s":
+            print("\nYou selected south!\n")
+        elif direction == "e":
+            print("\nYou selected east!\n")
+        elif direction == "q":
+            print("\nSee you next time!\n")
+            quit()
+        else:
+            print(
+                "\nThat's not a direction! Please enter a cardinal direction (n, w, e, s) or q to quit\n")
 
 
 game_intro()
