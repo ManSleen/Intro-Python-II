@@ -42,7 +42,7 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 
 
-player = Player("Mike", "outside")
+player = Player("Mike", room['outside'])
 
 # Write a loop that:
 #
@@ -60,18 +60,24 @@ def game_intro():
     print("\nWelcome to Mike's Adventure!\n")
 
     while True:
-        print(f"Here's where you currently are: {room[player.current_room]}")
-        direction = input("Which direction would you like to travel? ")
+        print(f"\nHere's where you currently are: {player.current_room}")
+        direction = input("\nWhich direction would you like to travel? ")
+
+        def check_direction(dir):
+            if dir:
+                player.move(dir)
+            else:
+                print(
+                    "-------\nSorry brah, there's nothing there! Try a different direction\n-------")
 
         if direction == "n":
-            print("\nYou selected north!\n")
-            player.current_room = room[player.current_room].n_to
+            check_direction(player.current_room.n_to)
         elif direction == "w":
-            print("\nYou selected west!\n")
+            check_direction(player.current_room.w_to)
         elif direction == "s":
-            print("\nYou selected south!\n")
+            check_direction(player.current_room.s_to)
         elif direction == "e":
-            print("\nYou selected east!\n")
+            check_direction(player.current_room.e_to)
         elif direction == "q":
             print("\nSee you next time!\n")
             quit()

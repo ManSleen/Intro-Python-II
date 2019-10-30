@@ -9,3 +9,6 @@ class Player:
 
     def __str__(self):
         return f"I am {self.name}!"
+
+    def move(self, room):
+        self.current_room = room

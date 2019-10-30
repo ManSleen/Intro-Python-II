@@ -7,6 +7,9 @@ class Room:
         self.name = name
         self.description = description
         self.n_to = None
+        self.s_to = None
+        self.e_to = None
+        self.w_to = None
 
     def __str__(self):
-        return f"Room: {self.name}, Description: {self.description}\n"
+        return f"\n\tRoom: {self.name}\n\tDescription: {self.description}\n"
