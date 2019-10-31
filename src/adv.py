@@ -61,7 +61,8 @@ def game_intro():
 
     while True:
         print("\n---------------------")
-        print(f"Your current location: {player.current_room}")
+        print("Your current location:")
+        print(f"{player.current_room}")
         print("---------------------")
         direction = input("\nWhich direction would you like to travel? ")
 
