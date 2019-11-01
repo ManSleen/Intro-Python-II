@@ -1,6 +1,7 @@
 
 from player import Player
 from room import Room
+from item import Item
 
 # Declare all the rooms
 
@@ -35,6 +36,13 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# Create items
+torch = Item("torch", "This might help you light the way...")
+
+
+# Add items to rooms
+room['outside'].add_item(torch)
+
 #
 # Main
 #
@@ -60,9 +68,15 @@ def game_intro():
     print("\nWelcome to Mike's Adventure!\n")
 
     while True:
-        print("\n---------------------")
-        print("Your current location:")
-        print(f"{player.current_room}")
+        print("\n\n\n\n\n---------------------")
+        print("Your current location:\n")
+
+        if player.current_room.items == []:
+            print(f"{player.current_room.name}")
+            print(f"{player.current_room.description}")
+            print("Items in Room:     No items in this room")
+        else:
+            print(f"{player.current_room}")
         print("---------------------")
         direction = input("\nWhich direction would you like to travel? ")
 
