@@ -13,10 +13,11 @@ class Room:
         self.w_to = None
 
     def __str__(self):
-        room = f"\nRoom: {self.name}\nDescription: {self.description}\nItems in Room: "
+        room = f"\nRoom: {self.name}\nDescription: {self.description}\nItems in Room:\n"
         for n, item in enumerate(self.items, start=1):
             room += f"   {n}. {item.name}\n"
-            return room
+
+        return room
 
     def add_item(self, item):
         self.items.append(item)

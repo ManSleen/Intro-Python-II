@@ -38,12 +38,16 @@ room['treasure'].s_to = room['narrow']
 
 # Create items
 item = {
-    "torch": Item("torch", "This might help you light the way...")
+    "torch": Item("torch", "This might help you light the way..."),
+    "sword": Item("sword", "Its steely blade is um... sharp I guess"),
+    "ring": Item("ring", "Its just a ring man")
 }
 
 
 # Add items to rooms
 room['outside'].add_item(item["torch"])
+room['outside'].add_item(item["ring"])
+room['narrow'].add_item(item["sword"])
 
 #
 # Main
@@ -71,7 +75,7 @@ def game_init():
 
     while True:
 
-        if player.items != []:
+        if len(player.items) > 0:
             print("\n\n\n\n\n---------------------")
             print(player)
         print("\n---------------------")
@@ -115,6 +119,7 @@ def game_init():
 
             if action == "get":
                 if item[gameItem] in player.current_room.items:
+
                     player.collect_item(item[gameItem])
                     player.current_room.remove_item(item[gameItem])
                 else:

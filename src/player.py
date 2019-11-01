@@ -9,13 +9,15 @@ class Player:
         self.items = []
 
     def __str__(self):
-        player = f"{self.name}'s items:"
+        player = f"{self.name}'s items:\n"
         for n, item in enumerate(self.items, start=1):
             player += f"   {n}. {item.name}\n"
-            return player
+
+        return player
 
     def move(self, room):
         self.current_room = room
 
     def collect_item(self, item):
         self.items.append(item)
+        item.on_take()
