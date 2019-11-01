@@ -75,11 +75,7 @@ def game_init():
 
     while True:
 
-        if len(player.items) > 0:
-            print("\n\n\n\n\n---------------------")
-            print(player)
-        print("\n---------------------")
-        print("Your current location:\n")
+        print("\n\n\nYour current location:\n")
 
         if player.current_room.items == []:
             print(f"{player.current_room.name}")
@@ -89,6 +85,7 @@ def game_init():
             print(f"{player.current_room}")
 
         print("---------------------")
+
         direction = input("\nWhich direction would you like to travel? ")
         direction.split()
 
@@ -110,6 +107,11 @@ def game_init():
             elif direction == "q":
                 print("\nSee you next time!\n")
                 quit()
+            elif direction == "i" or direction == "inventory":
+                if len(player.items) > 0:
+                    print("\n\n\n\n\n---------------------")
+                    print(player)
+                    print("\n---------------------\n\n")
             else:
                 print(
                     "\nThat's not a direction! Please enter a cardinal direction (n, w, e, s) or q to quit\n")
@@ -119,13 +121,15 @@ def game_init():
 
             if action == "get":
                 if item[gameItem] in player.current_room.items:
-
                     player.collect_item(item[gameItem])
                     player.current_room.remove_item(item[gameItem])
                 else:
                     print(f"\nThere is no {gameItem} in this room.")
-               #  player.collect_item(direction.split()[1])
-                # player.current_room.remove_item()
+
+            if action == "drop":
+                if item[gameItem] in player.items:
+                    player.drop_item(item[gameItem])
+                    player.current_room.add_item(item[gameItem])
 
 
 game_init()

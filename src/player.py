@@ -9,7 +9,7 @@ class Player:
         self.items = []
 
     def __str__(self):
-        player = f"{self.name}'s items:\n"
+        player = f"{self.name}'s inventory:\n"
         for n, item in enumerate(self.items, start=1):
             player += f"   {n}. {item.name}\n"
 
@@ -21,3 +21,7 @@ class Player:
     def collect_item(self, item):
         self.items.append(item)
         item.on_take()
+
+    def drop_item(self, item):
+        self.items.remove(item)
+        item.on_drop()
