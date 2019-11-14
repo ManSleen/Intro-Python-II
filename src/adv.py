@@ -1,4 +1,7 @@
+
+from player import Player
 from room import Room
+from item import Item
 
 # Declare all the rooms
 
@@ -33,11 +36,27 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# Create items
+item = {
+    "torch": Item("torch", "This might help you light the way..."),
+    "sword": Item("sword", "Its steely blade is um... sharp I guess"),
+    "ring": Item("ring", "Its just a ring man")
+}
+
+
+# Add items to rooms
+room['outside'].add_item(item["torch"])
+room['outside'].add_item(item["ring"])
+room['narrow'].add_item(item["sword"])
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
+
+
+player = Player("Mike", room['outside'])
 
 # Write a loop that:
 #
@@ -49,3 +68,68 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+def game_init():
+    print("\nWelcome to Mike's Adventure!\n")
+
+    while True:
+
+        print("\n\n\nYour current location:\n")
+
+        if player.current_room.items == []:
+            print(f"{player.current_room.name}")
+            print(f"{player.current_room.description}")
+            print("Items in Room:     No items in this room")
+        else:
+            print(f"{player.current_room}")
+
+        print("---------------------")
+
+        direction = input("\nWhich direction would you like to travel? ")
+        direction.split()
+
+        def check_direction(dir):
+            if dir:
+                player.move(dir)
+            else:
+                print(
+                    "\n-------\nSorry brah,you can't go that way! Try a different direction\n-------")
+        if len(direction.split()) == 1:
+            if direction == "n":
+                check_direction(player.current_room.n_to)
+            elif direction == "w":
+                check_direction(player.current_room.w_to)
+            elif direction == "s":
+                check_direction(player.current_room.s_to)
+            elif direction == "e":
+                check_direction(player.current_room.e_to)
+            elif direction == "q":
+                print("\nSee you next time!\n")
+                quit()
+            elif direction == "i" or direction == "inventory":
+                if len(player.items) > 0:
+                    print("\n\n\n\n\n---------------------")
+                    print(player)
+                    print("\n---------------------\n\n")
+            else:
+                print(
+                    "\nThat's not a direction! Please enter a cardinal direction (n, w, e, s) or q to quit\n")
+        elif (len(direction.split()) == 2):
+            action = direction.split()[0]
+            gameItem = direction.split()[1]
+
+            if action == "get":
+                if item[gameItem] in player.current_room.items:
+                    player.collect_item(item[gameItem])
+                    player.current_room.remove_item(item[gameItem])
+                else:
+                    print(f"\nThere is no {gameItem} in this room.")
+
+            if action == "drop":
+                if item[gameItem] in player.items:
+                    player.drop_item(item[gameItem])
+                    player.current_room.add_item(item[gameItem])
+
+
+game_init()
